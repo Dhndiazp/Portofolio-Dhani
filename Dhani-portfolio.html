@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portofolio Dhani Diaz Prayitno — Mahasiswa Informatika Universitas Gunadarma.">
+    <title>Dhani Diaz Prayitno — Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* BAGIAN WARNA (Telah diubah menjadi Dark Mode) */
+        :root {
+            --bg:        #121212; /* Warna latar belakang utama (Hitam gelap) */
+            --bg-card:   #1E1E1E; /* Warna latar kartu/elemen (Abu-abu sangat gelap) */
+            --ink:       #F5F5F5; /* Warna teks utama (Putih pudar) */
+            --muted:     #A0A0A0; /* Warna teks sekunder (Abu-abu terang) */
+            --line:      #333333; /* Warna garis batas (Abu-abu medium) */
+            --accent:    #60A5FA; /* Warna aksen/link (Biru muda) */
+        }
+
+        html { scroll-padding-top: 80px; }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 50;
+            background: var(--bg);
+            border-bottom: 1px solid var(--line);
+        }
+        .nav-inner {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        .nav-brand {
+            font-family: 'Fraunces', serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--ink);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+            flex-shrink: 0;
+        }
+        /* Pill container */
+        .nav-pill {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            background: var(--bg-card);
+            border-radius: 999px;
+            padding: 4px;
+            list-style: none;
+            margin: 0;
+        }
+        .nav-pill li { list-style: none; }
+        .nav-pill a {
+            display: block;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            padding: 6px 18px;
+            border-radius: 999px;
+            transition: background .2s, color .2s;
+            white-space: nowrap;
+        }
+        .nav-pill a:hover {
+            background: var(--bg);
+            color: var(--ink);
+        }
+        .nav-pill a.active {
+            background: var(--bg);
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        /* ─── SECTIONS ─── */
+        section { padding: 100px 32px; }
+        .container { max-width: 1100px; margin: auto; }
+
+        /* ─── HERO ─── */
+        #home { padding-top: calc(64px + 80px); }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 60px;
+            align-items: flex-start;
+        }
+        .hero-location {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+        .hero-name {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(56px, 8vw, 100px);
+            font-weight: 400;
+            line-height: 1.0;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            margin-bottom: 28px;
+        }
+        .hero-tagline {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+        .hero-desc {
+            font-size: 15px;
+            color: var(--muted);
+            max-width: 480px;
+            line-height: 1.75;
+            margin-bottom: 36px;
+        }
+        .hero-cta {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        .hero-cta a {
+            font-size: 14px;
+            color: var(--ink);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: var(--muted);
+            transition: text-decoration-color .2s;
+        }
+        .hero-cta a:hover { text-decoration-color: var(--ink); }
+
+        /* Photo card — polaroid style */
+        .photo-card {
+            width: 280px;
+            background: var(--bg-card);
+            border-radius: 4px;
+            box-shadow: 0 8px 40px rgba(0,0,0,.30); /* Shadow dipergelap */
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid var(--line);
+        }
+        .photo-card .photo-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            object-position: top;
+            display: block;
+            background: var(--bg-card);
+        }
+        .photo-caption {
+            padding: 14px 16px 16px;
+            border-top: 1px solid var(--line);
+            background: var(--bg-card);
+        }
+        .photo-caption .name { font-size: 14px; font-weight: 600; color: var(--ink); }
+        .photo-caption .sub {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* ─── DIVIDER ─── */
+        .divider { border: none; border-top: 1px solid var(--line); }
+
+        /* ─── ABOUT ─── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        .section-label {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+        .about-body {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.85;
+            max-width: 560px;
+        }
+
+        /* ─── SKILLS ─── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 40px;
+        }
+        .skill-chip {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px 20px;
+            border: 1px solid var(--line);
+        }
+        .skill-chip .emoji { font-size: 22px; }
+        .skill-chip h3 { font-size: 14px; font-weight: 600; margin-top: 12px; }
+        .skill-chip p { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
+        /* ─── PROJECTS ─── */
+        .projects-list { display: flex; flex-direction: column; gap: 2px; margin-top: 40px; }
+        .project-item {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            align-items: center;
+            gap: 24px;
+            padding: 24px 0;
+            border-top: 1px solid var(--line);
+            text-decoration: none;
+            color: var(--ink);
+            transition: background .2s;
+        }
+        .project-item:last-child { border-bottom: 1px solid var(--line); }
+        .project-num { font-family: 'Fraunces', serif; font-size: 14px; color: var(--muted); }
+        .project-info h3 { font-size: 17px; font-weight: 500; }
+        .project-info p { font-size: 13px; color: var(--muted); margin-top: 3px; }
+        .project-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .tag {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--muted);
+            background: var(--bg-card);
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+
+        /* Project image slideshow on hover */
+        .project-preview {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+        }
+        .project-card-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .project-card-img {
+            position: relative;
+            min-height: 320px;
+            overflow: hidden;
+            background: var(--line);
+        }
+        .project-card-img .slide {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: opacity .4s ease;
+        }
+        .project-card-img .slide.active { opacity: 1; }
+        .project-card-img .slide:not(.active) { opacity: 0; }
+        .project-card-info { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .project-eyebrow { font-size: 11px; color: var(--muted); letter-spacing: .08em; margin-bottom: 12px; }
+        .project-card-info h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .project-card-info p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+        .slide-btns { display: flex; gap: 8px; margin-top: 24px; }
+        .slide-btn {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--bg);
+            color: var(--ink);
+            cursor: pointer;
+            font-size: 12px;
+            display: flex; align-items: center; justify-content: center;
+            transition: background .2s;
+        }
+        .slide-btn:hover { background: var(--ink); color: var(--bg); }
+
+        /* Tombol Lihat Projek */
+        .project-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+        .btn-project {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ink);
+            background: var(--bg);
+            border: 1px solid var(--line);
+            padding: 9px 20px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: background .2s, border-color .2s, transform .15s;
+            white-space: nowrap;
+        }
+        .btn-project:hover {
+            background: var(--ink);
+            color: var(--bg);
+            border-color: var(--ink);
+            transform: translateY(-1px);
+        }
+        .btn-project .arrow { font-size: 14px; transition: transform .2s; }
+        .btn-project:hover .arrow { transform: translateX(3px); }
+
+        /* ─── CERTIFICATES ─── */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 12px;
+            margin-top: 40px;
+        }
+        .cert-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
+            border: 1px solid var(--line);
+        }
+        .cert-num {
+            font-family: 'Fraunces', serif;
+            font-size: 28px;
+            font-weight: 300;
+            color: var(--line);
+        }
+        .cert-card h3 { font-size: 15px; font-weight: 600; margin-top: 20px; line-height: 1.4; }
+        .cert-card p { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+        /* ─── CONTACT ─── */
+        #contact { text-align: left; }
+        .contact-wrap { max-width: 640px; }
+        .contact-wrap .section-title { margin-bottom: 20px; }
+        .contact-wrap p { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 32px; }
+        .contact-link {
+            display: inline-block;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--ink);
+            text-decoration: underline;
+            text-underline-offset: 5px;
+            text-decoration-color: var(--muted);
+            transition: text-decoration-color .2s;
+        }
+        .contact-link:hover { text-decoration-color: var(--ink); }
+
+        /* ─── FOOTER ─── */
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 28px 32px;
+        }
+        .footer-inner {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* ─── REVEAL ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .reveal.active { opacity: 1; transform: none; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 768px) {
+            section { padding: 72px 20px; }
+            .hero-grid { grid-template-columns: 1fr; }
+            .photo-card { width: 220px; }
+            .about-grid { grid-template-columns: 1fr; gap: 24px; }
+            .project-card-inner { grid-template-columns: 1fr; }
+            .project-item { grid-template-columns: 40px 1fr; }
+            .project-tags { display: none; }
+            .nav-inner { padding: 0 20px; }
+            .nav-links { gap: 20px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-inner">
+            <a href="#home" class="nav-brand">Dhani.</a>
+            <ul class="nav-pill">
+                <li><a href="#about" class="active">Tentang</a></li>
+                <li><a href="#projects">Bekerja</a></li>
+                <li><a href="#certificates">Sertifikasi</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <p class="hero-location">Jakarta, Indonesia</p>
+                    <h1 class="hero-name">Saya<br>Dhani.</h1>
+                    <p class="hero-tagline">Saya suka membangun sesuatu dengan teknologi.</p>
+                    <p class="hero-desc">
+                        Terkadang berupa aplikasi web, terkadang game interaktif, atau eksperimen machine learning — sesuatu yang membuat saya cukup penasaran untuk membuatnya.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#projects">Lihat karya saya ↓</a>
+                        <a href="#contact">Kirimkan saya email ↗</a>
+                    </div>
+                </div>
+
+                <!-- Photo Card -->
+                <div class="photo-card">
+                    <img class="photo-img" src="Foto/FotoProfil.jpeg" alt="Dhani Diaz Prayitno">
+                    <div class="photo-caption">
+                        <div class="name">Dhani Diaz Prayitno</div>
+                        <div class="sub">
+                            <span>Mahasiswa Informatika</span>
+                            <span>Jakarta</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid reveal">
+                <div>
+                    <p class="section-label">Tentang Saya</p>
+                    <h2 class="section-title">Belajar,<br>membangun,<br>dan berkembang.</h2>
+                </div>
+                <div class="about-body">
+                    <p>
+                        Saya mahasiswa Informatika Universitas Gunadarma dengan ketertarikan pada teknologi dan pengembangan perangkat lunak. Melalui berbagai proyek akademik dan personal, saya terbiasa mengeksplorasi proses perancangan antarmuka, pengembangan aplikasi, pengolahan data, hingga implementasi machine learning.
+                    </p>
+                    <div class="skills-grid" style="margin-top: 32px;">
+                        <div class="skill-chip">
+                            <div class="emoji">💻</div>
+                            <h3>Front End</h3>
+                            <p>Tampilan web responsif dan fungsional.</p>
+                        </div>
+                        <div class="skill-chip">
+                            <div class="emoji">🎮</div>
+                            <h3>Game Dev</h3>
+                            <p>Game dan mekanik interaktif dengan Unity.</p>
+                        </div>
+                        <div class="skill-chip">
+                            <div class="emoji">🤖</div>
+                            <h3>AI / ML</h3>
+                            <p>Klasifikasi, data, dan machine learning.</p>
+                        </div>
+                        <div class="skill-chip">
+                            <div class="emoji">🗄️</div>
+                            <h3>Database</h3>
+                            <p>Struktur dan kebutuhan data aplikasi.</p>
+                        </div>
+                        <div class="skill-chip">
+                            <div class="emoji">✦</div>
+                            <h3>UI / UX</h3>
+                            <p>Pengalaman pengguna yang jelas dan bersih.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">Bekerja</p>
+                <h2 class="section-title">Proyek pilihan</h2>
+            </div>
+
+            <div class="project-preview">
+
+                <!-- PROJECT 1 -->
+                <div class="project-card reveal">
+                    <div class="project-card-inner">
+                        <div class="project-card-img" id="slide-1">
+                            <img src="Foto/PortoGame.png" class="slide active" alt="The Red Warrior Adventure">
+                            <img src="Foto/PortoGame2.png" class="slide" alt="The Red Warrior Adventure 2">
+                        </div>
+                        <div class="project-card-info">
+                            <p class="project-eyebrow">01 · GAME DEVELOPMENT</p>
+                            <h3>The Red Warrior Adventure</h3>
+                            <p>Sebuah game 2D petualangan yang menggabungkan elemen RPG dan Platforming, dikembangkan menggunakan Unity.</p>
+                            <div class="project-card-footer">
+                                <div class="slide-btns" style="margin-top:0;">
+                                    <button class="slide-btn" onclick="prevSlide('slide-1')">&#10094;</button>
+                                    <button class="slide-btn" onclick="nextSlide('slide-1')">&#10095;</button>
+                                </div>
+                                <a href="https://drive.google.com/file/d/1Z9mSSpAY9gE5EmomYpnpBisT4xKW03jx/view?usp=drive_link" target="_blank" class="btn-project">
+                                    Lihat Projek <span class="arrow">→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 2 -->
+                <div class="project-card reveal">
+                    <div class="project-card-inner">
+                        <div class="project-card-info" style="order: 1;">
+                            <p class="project-eyebrow">02 · WEB DEVELOPMENT</p>
+                            <h3>Go Adventure</h3>
+                            <p>Website jasa trip organizer dengan layanan petualangan dan pendakian gunung yang terintegrasi — Open Trip, Private Trip, Family Trip, hingga Same Day Trip.</p>
+                            <div class="project-card-footer">
+                                <div class="slide-btns" style="margin-top:0;">
+                                    <button class="slide-btn" onclick="prevSlide('slide-2')">&#10094;</button>
+                                    <button class="slide-btn" onclick="nextSlide('slide-2')">&#10095;</button>
+                                </div>
+                                <a href="https://github.com/Dhndiazp/Website-Go-Adventure" target="_blank" class="btn-project">
+                                    Lihat Projek <span class="arrow">→</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-card-img" id="slide-2" style="order: 2;">
+                            <img src="Foto/PortofolioWeb1.png" class="slide active" alt="Go Adventure">
+                            <img src="Foto/PortofolioWeb2.png" class="slide" alt="Go Adventure 2">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 3 -->
+                <div class="project-card reveal">
+                    <div class="project-card-inner">
+                        <div class="project-card-img" id="slide-3">
+                            <img src="Foto/PortoAI.png" class="slide active" alt="AI Rekomendasi Olahraga">
+                            <img src="Foto/PortofolioAI2.png" class="slide" alt="AI Rekomendasi Olahraga 2">
+                        </div>
+                        <div class="project-card-info">
+                            <p class="project-eyebrow">03 · ARTIFICIAL INTELLIGENCE</p>
+                            <h3>AI Sistem Rekomendasi Olahraga</h3>
+                            <p>Machine learning untuk merekomendasikan intensitas dan jenis olahraga berdasarkan data pengguna menggunakan algoritma Random Forest.</p>
+                            <div class="project-card-footer">
+                                <div class="slide-btns" style="margin-top:0;">
+                                    <button class="slide-btn" onclick="prevSlide('slide-3')">&#10094;</button>
+                                    <button class="slide-btn" onclick="nextSlide('slide-3')">&#10095;</button>
+                                </div>
+                                <a href="https://rekomendasi-olahraga-dan-intensitas.streamlit.app/" target="_blank" class="btn-project">
+                                    Lihat Projek <span class="arrow">→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- CERTIFICATES -->
+    <section id="certificates">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">Sertifikasi</p>
+                <h2 class="section-title">Kursus &<br>pelatihan.</h2>
+            </div>
+
+            <div class="certs-grid">
+                <div class="cert-card reveal">
+                    <div class="cert-num">01</div>
+                    <div>
+                        <h3>Advanced Database Systems</h3>
+                        <p>Sertifikasi Kompetensi</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-num">02</div>
+                    <div>
+                        <h3>Aptitude Test</h3>
+                        <p>Evaluasi Kompetensi</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-num">03</div>
+                    <div>
+                        <h3>Fundamentals of Database Systems</h3>
+                        <p>Sertifikasi Kompetensi Dasar</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-num">04</div>
+                    <div>
+                        <h3>SQL Server For Intermediate</h3>
+                        <p>Sertifikasi Pemrograman Menengah</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-num">05</div>
+                    <div>
+                        <h3>JavaScript Programming Language Fundamental</h3>
+                        <p>Pemrograman Web Fundamental</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-num">06</div>
+                    <div>
+                        <h3>Introduction to Microsoft Dynamics NAV C/Side Programming</h3>
+                        <p>Sertifikasi Pemrograman Spesifik</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-num">07</div>
+                    <div>
+                        <h3>SQL Server For Beginner</h3>
+                        <p>Sertifikasi Database Pemula</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-num">08</div>
+                    <div>
+                        <h3>Microsoft Dynamics NAV For Beginner</h3>
+                        <p>Sertifikasi NAV Pemula</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-num">09</div>
+                    <div>
+                        <h3>Fundamental ERP</h3>
+                        <p>Sistem Enterprise</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-num">10</div>
+                    <div>
+                        <h3>Fundamental DBMS</h3>
+                        <p>Dasar Basis Data</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-wrap reveal">
+                <p class="section-label">Kontak</p>
+                <h2 class="section-title">Tertarik<br>bekerja sama?</h2>
+                <p style="margin-top: 20px;">
+                    Saya terbuka untuk kesempatan magang, kolaborasi proyek, maupun diskusi seputar teknologi dan pengembangan perangkat lunak.
+                </p>
+                <a href="mailto:dhanidiaz2@gmail.com" class="contact-link">dhanidiaz2@gmail.com ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <span>© 2026 Dhani Diaz Prayitno.</span>
+            <span>Universitas Gunadarma · Portfolio</span>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const io = new IntersectionObserver((entries, obs) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('active');
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // Slideshow
+        function getSlides(id) {
+            return document.getElementById(id).querySelectorAll('.slide');
+        }
+        function getCurrentIndex(id) {
+            const slides = getSlides(id);
+            return [...slides].findIndex(s => s.classList.contains('active'));
+        }
+        function goTo(id, index) {
+            const slides = getSlides(id);
+            slides.forEach(s => s.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+        function nextSlide(id) {
+            const slides = getSlides(id);
+            const cur = getCurrentIndex(id);
+            goTo(id, (cur + 1) % slides.length);
+        }
+        function prevSlide(id) {
+            const slides = getSlides(id);
+            const cur = getCurrentIndex(id);
+            goTo(id, (cur - 1 + slides.length) % slides.length);
+        }
+        // Active nav pill on scroll
+        const sections = ['about','projects','certificates','contact'];
+        const pillLinks = document.querySelectorAll('.nav-pill a');
+        const onScroll = () => {
+            let current = '';
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && window.scrollY >= el.offsetTop - 100) current = id;
+            });
+            pillLinks.forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+    </script>
+</body>
+</html>
